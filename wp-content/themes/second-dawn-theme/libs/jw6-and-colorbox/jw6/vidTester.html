@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<script type="text/javascript" src="http://mobileworldlive.com/jw6/jwplayer.js"></script>
+<script>jwplayer.key="EpzxpnV7mesdlRMj05arfHZkrsfBeRuPD9NwzVdhrCY="</script>
+<script>
+function showVideo(){
+	var text = document.getElementById("vidtext").value;
+	showVid(text)
+}
+function showVid(str){
+	 jwplayer('mediaplayer').setup({
+        file: "http://mydeo.vo.llnwd.net/o1/chq8w/mobileworldlive/"+str,
+        width: '620',
+        height: '345'
+    });
+}
+</script>
+<input id='vidtext' type="text" /><input type="button" onclick="showVideo()" value="view">
+<div id="mediaplayer">JW Player goes here</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+#colorbox{
+	left:8% !important;
+	right:8% !important;
+	width:auto !important;
+	background-color: white;
+	z-index: 1000000;
+	position: fixed !important;
+	top: 8% !important;
+	bottom: 8%;
+	height: auto !important;
+	overflow:auto !important;
+	border-top: 10px solid #eeeded;
+	border-right: 5px solid #eeeded;
+	border-bottom: 10px solid #eeeded;
+	border-left: 10px solid #eeeded;
+}
+#cboxWrapper{
+	width: auto !important;	
+}
+#cboxContent,
+#cboxLoadedContent{
+	width: auto !important;
+	overflow: visible !important;
+}
+.inlinebox{
+	padding: 20px;
+}
+#cboxOverlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1000000;
+	background: #333333;
+}
+#cboxClose{
+	top: -3px;
+	position: absolute;
+	left: 50%;
+	width: 150px;
+	margin-left: -75px;
+	z-index: 100;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	background-color: #eeeded;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: bold;	
+}

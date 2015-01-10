@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+#colorbox{
+	left:20px !important;
+	right:20px !important;
+	width:auto !important;
+	background-color: wheat;
+	z-index: 1000000;
+}

@@ -1,0 +1,235 @@
+/* *** nivo-slider.css *** */
+/*
+ * jQuery Nivo Slider v3.1
+ * http://nivo.dev7studios.com
+ *
+ * Copyright 2012, Dev7studios
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+ 
+/* The Nivo Slider styles */
+.nivoSlider {
+	position:relative;
+	width:100%;
+	height:auto;
+	overflow: hidden;
+}
+.nivoSlider img {
+	position:absolute;
+	top:0;
+	left:0;
+	max-width: none;
+}
+.nivo-main-image {
+	display: block !important;
+	position: relative !important; 
+	width: 100% !important;
+}
+
+/* If an image is wrapped in a link */
+.nivoSlider a.nivo-imageLink {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	z-index:6;
+	display:none;
+}
+/* The slices and boxes in the Slider */
+.nivo-slice {
+	display:block;
+	position:absolute;
+	z-index:5;
+	height:100%;
+	top:0;
+}
+.nivoSlider img {
+	border-radius:0;
+}
+.wrapped_video.blog_post_image iframe {
+	border-radius:0;
+	overflow:hidden;
+}
+.nivo-box {
+	display:block;
+	position:absolute;
+	z-index:5;
+	overflow:hidden;
+}
+.nivo-box img { display:block; }
+
+/* Caption styles */
+.nivo-caption {
+	position:absolute;
+	left:0;
+	bottom:0;
+	background:#000;
+	color:#fff;
+	width:100%;
+	z-index:8;
+	padding: 5px 10px;
+	opacity: 0.8;
+	overflow: hidden;
+	display: none;
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+.nivo-caption p {
+	padding:5px;
+	margin:0;
+}
+.nivo-caption a {
+	display:inline !important;
+}
+.nivo-html-caption {
+    display:none;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+.nivo-directionNav a {
+	width:28px;
+	height:48px;
+	position:absolute;
+	top:50%;
+	margin-top:-24px;
+	display:block;
+	z-index:777;
+	text-indent:-9999px;
+	cursor:pointer;
+	opacity: 0;
+    transition: all 300ms!important;
+	-webkit-transition: all 300ms!important;
+}
+.nivoSlider:hover .nivo-directionNav a {
+	opacity: 0.999;
+}
+.nivo-directionNav:hover a:hover {
+	opacity: 0.6;
+}
+
+.slider-wrapper {
+	min-height:20px;	
+}
+
+.slider-wrapper .nivo-prevNav:before,
+.slider-wrapper .nivo-nextNav:before {
+	content:'';
+	width:28px;
+	height:48px;
+	display:block;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.nivo-prevNav {
+	left:40px;
+}
+.nivo-nextNav {
+	right:40px;
+}
+.nivo-prevNav:before {
+	background:url(../img/qd-sprites.png) no-repeat 0 -153px;
+}
+.nivo-nextNav:before {
+	background:url(../img/qd-sprites.png) no-repeat -29px -153px;
+}
+
+.module_blog_masonry .nivo-prevNav {
+	left:20px;
+}
+.module_blog_masonry .nivo-nextNav {
+	right:20px;
+}
+.module_blog_masonry .nivo-directionNav a {
+	width:28px;
+	height:33px;
+	margin-top:-17px;	
+}
+
+/* Control nav styles (e.g. 1,2,3...) */
+.nivo-controlNav {
+	text-align:center;
+}
+.nivo-controlNav a {
+	cursor:pointer;
+}
+
+/*CustomCSS*/
+.slider-wrapper {
+	position:relative;
+}
+.nivo-controlNav {
+	display:block!important;
+	position:absolute;
+	bottom:20px;
+	left:0;
+	width:100%;
+	text-align:center;
+	z-index:99;
+
+}
+.nivo-controlNav a {
+	text-indent:-10000px!important;
+	overflow:hidden;
+	display:inline-block;
+	width:10px;
+	height:10px;
+	background:#ffffff;
+	border-radius:100%;
+	opacity:0.5;
+	margin:0 4px;
+}
+.nivo-controlNav a.active {
+	opacity:1;	
+}
+.oneImage .nivo-directionNav a,
+.oneImage .nivo-directionNav a:before {
+	display:none!important;
+}
+
+/*Layer Slider*/
+/* Direction nav styles (e.g. Next & Prev) */
+.module_cont .ls-container .ls-nav-prev,
+.module_cont .ls-container .ls-nav-next {
+	width:57px;
+	height:66px;
+	position:absolute;
+	top:50%;
+	margin-top:-33px;
+	display:block;
+	z-index:777;
+	text-indent:-9999px;
+	cursor:pointer;
+	/*opacity: 0;*/
+    transition: all 300ms!important;
+	-webkit-transition: all 300ms!important;
+}
+/*.ls-container:hover .ls-nav-prev,
+.ls-container:hover .ls-nav-next {
+	opacity: 0.999!important;
+}*/
+.ls-container .ls-nav-prev:hover,
+.ls-container .ls-nav-next:hover {
+	opacity: 0.6!important;
+}
+.ls-nav-prev {
+	left:80px!important;
+}
+.ls-nav-next {
+	right:80px!important;
+}
+.ls-container .ls-nav-prev {
+	background:url(../img/qd-sprites.png) no-repeat -96px -129px;
+}
+.ls-container .ls-nav-next {
+	background:url(../img/qd-sprites.png) no-repeat -154px -129px;
+}
+.first-module.fullwidth_layer_slider {
+	margin-top:0;
+}
+.ls-container {
+	overflow:hidden;
+}

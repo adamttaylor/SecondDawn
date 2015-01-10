@@ -1,0 +1,519 @@
+.character-sheet{
+	width:565pt;
+	font-size:7.5pt;
+	line-height:15pt;
+	font-family:Arial, Helvetica, sans-serif;
+	background: white;
+	
+	*{
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+	}
+	p, td, div, blockquote p{
+		font-size:7.5pt;
+		line-height:12pt;	
+	}
+	.box-count{
+		width: 28pt;
+		border: 1pt solid black;
+		padding: 2pt 8pt 0pt 0;
+		text-align: right;
+		border-bottom: 0;
+		height:14pt;
+	}
+	h1{
+		font-size:13pt;
+		margin: 0;
+		padding: 0;	
+		margin-bottom: 13px;
+		background:none;
+		line-height: 12pt;
+		text-align: left;
+		text-transform: none;
+		margin-left: 8pt;
+		line-height: 17pt;
+	}
+	h2{
+		font-size:11pt;
+		margin:0;
+		padding:0;
+		font-weight:normal;
+		margin-bottom: 6px;
+		background:none;
+		text-align:left;	
+	}
+	.small{
+		font-size:7.5pt;	
+	}
+	.top-space{
+		margin-top:1pt;	
+	}
+	table{
+		border-collapse:collapse;
+		
+		&.full{
+			width:100%;	
+		}
+		&.worn{
+			width:410pt;
+			float:left;	
+		}
+		#combat-counts{
+			float:left;
+			width: 142pt;
+			margin-left: 18px;
+			
+			div{
+				display:inline-block;	
+			}
+			.label{
+				width: 80pt;
+				margin-left: 24pt;
+				font-size: 9pt;
+				display: inline-block;	
+			}
+			.count{
+				@extend .box-count;
+				display: inline-block;
+				height:16pt;
+			}
+		}
+		&.skill-page{
+			td{
+				padding:4pt;
+				vertical-align:top;
+				white-space:pre-wrap;
+				&:first-child{
+					font-size: 9pt;
+					width:20%;	
+				}
+			}
+		}
+		.skill-table{
+			width:183pt;
+			margin-right:7pt;
+			float:left;
+			
+			&:last-child{
+				margin-right:0;
+				width:185pt;
+			}
+			td{
+				padding-left: 3pt;	
+			}
+		}
+	}
+	table.full{
+			
+	}
+	.upper-line{
+		border-top:2pt solid black;
+	}
+	.bottom-line{
+		border-bottom:2pt solid black;	
+	}
+	.inline-tbl{
+		float:left;
+	}
+	#slots-table{
+		width:124pt;
+		margin-right:7pt;
+		text-align:center;
+		
+		td:first-child{
+			text-align:left;	
+		}
+	}
+	#under-top-table,
+	#class-table{
+		width: 434pt;
+		margin-right: -2px;
+		float:left;
+		
+		.key{
+			display:inline-block;
+			width:50pt;
+			&.short{
+				margin-right:5pt;
+				width:32pt;	
+			}
+		}
+		.value{
+			font-weight:bold;	
+		}
+	}
+	#race-table{
+		margin-right: -3px;
+		width: 752px;
+		
+		td{
+			width:50%;
+			&.full-text{
+				font-style:italic;
+				line-height:13pt;	
+				padding: 5pt 0;
+				height:68pt;
+				vertical-align:top;
+			}
+		}
+	}
+	.left-pad{
+		padding-left:2pt;	
+	}
+	.full-text{
+		white-space:pre-wrap;	
+	}
+	.index{
+		background-color:#e7e7e7;
+		text-shadow:1pt 1pt 1pt white;
+		text-transform:uppercase;
+		padding:0pt 0 0pt 3pt;
+		line-height:12pt;
+		
+		&.level,
+		&.player-name,
+		&.build{
+			padding-left:0;	
+		}
+		.title{
+			font-size:10pt;	
+		}
+	}
+	.shade{
+		background-color:#e7e7e7;	
+	}
+	.ability{
+		display:inline-block;
+		width:70pt;	
+		
+		&:nth-child(7){
+			margin-left:70pt;	
+		}
+	}
+	.print-logo{
+		margin-right:7pt;
+		width:124pt;
+		vertical-align: top;
+		height: 50pt;
+		
+		img{
+			height:50pt;
+			width:124pt;
+		}
+	}
+	.top-line{
+		vertical-align:bottom;	
+		.character-name{
+			width:190pt;	
+		}
+	}
+	.character-name{
+		width:178pt;
+	}
+	.player-name{
+		width:144pt;
+		
+		&.top{
+			width:142pt;	
+		}
+	}
+	.level{
+		width:69pt;
+		
+		&.top{
+			width: 67pt;	
+		}
+	}
+	.build{
+	
+	}
+	.free-build{
+		font-weight:bold;	
+	}
+	.attr{
+		width:30%;
+		
+		&:first-child{
+			width:23%;		
+		}
+		&:last-child{
+			width:37%;	
+		}
+		
+	}
+	tr:nth-child(even) > .line-item{
+		background-color:#f4f4f4;
+		
+		&.index{
+			background-color:#e7e7e7;
+		}
+	}
+	.total-box{
+		display: inline-block;
+		margin-left: 290pt;
+		padding: 0 4pt 0 4pt;
+		text-transform: uppercase;
+		height: 14pt;
+		
+		.total-text{
+			margin-right: 8pt;	
+		}
+		.slot-num{
+			display: inline-block;
+			width: 11pt;
+			
+			&.armor{
+				width: 45pt;
+			}
+		}
+	}
+	.weapon-totals{
+		margin-bottom: 5pt;
+	}
+	.defense-box{
+		width: 46pt;
+		text-align: center;
+		margin-left: 365pt;
+		height: 14pt;
+		margin-top: -11pt;
+		text-transform: uppercase;
+	}
+	.damage-box{
+		width: 121pt;
+		text-align: center;
+		margin-left: 442pt;
+		height: 14pt;
+		margin-top: -2pt;
+		text-transform: uppercase;
+		position: relative;
+		right: -1pt;
+	}
+	.short .line-item{
+		line-height:10pt;
+	}
+	.line-item {
+		line-height:11pt;
+		padding: 1pt 0;
+		
+		span{
+			display:inline-block;
+		}
+		&.index .item-name{
+			margin-left:0pt;	
+		}
+		.item-name{
+			width: 124pt;
+			margin-left: 3pt;
+		}
+		.type{
+			width:78pt;
+		}
+		.quality{
+			width:66pt;
+		}
+		.location{
+			width:57pt;
+		}
+		.armor-num{
+			width:45pt;
+		}
+		.slot-num{
+			width:12pt;	
+		}
+		.combat{
+			margin-left:37pt;	
+		}
+		.tag-line{
+			width: 102pt;
+		}
+		.damage-base{
+			width:30pt;
+			margin-left: 38pt;
+		}
+		.damage-mod{
+			width: 49pt;
+		}
+	}
+	.lost-art-legend{
+		float: right;
+		margin-bottom: -10pt;
+
+		div{
+			display:inline-block;
+			vertical-align:top;	
+		}
+		.value{
+			@extend .box-count;
+			background:white;
+			border-top: 0;
+			border-bottom: 1pt solid black;	
+		}
+		
+	}
+	.lost-art-list{
+		margin-top:20pt;
+			
+		span{
+			width:35pt;
+			
+			&.first{
+				margin-left:3pt;	
+			}
+			&.name,
+			&.requirement{
+				width:174pt;	
+			}
+			&.category{
+				width:70pt;	
+			}
+		}
+	}
+	.equipment-page{
+		.line-item{
+			padding:4pt;	
+		}
+		.first-line{
+			border-bottom: 1pt dashed black;
+			margin: 0 -4pt 0 -4pt;
+			padding: 4pt;
+		}
+		.name{
+			width:175pt;
+			font-size:10pt;	
+		}
+		.item{
+			width:75pt;	
+		}
+		.low{
+			width:20pt;
+			margin-left:92pt;	
+			text-align:center;
+			border: 1pt solid black;
+		}
+		.mid,
+		.high{
+			width:20pt;	
+			text-align:center;
+			border: 1pt solid black;
+			border-left:none;
+		}
+		.influence{
+			width:50pt;
+			float:left;
+			padding-top:4pt;
+			
+			.num{
+				@extend .box-count;
+				border-bottom:1px solid black;
+				text-align:center;
+				font-size:10pt;
+			}
+		}
+		.descp{
+			padding-top:4pt;
+		}
+		
+		.slots-count{
+			width:50pt;
+			float:left;
+			div{
+				float:left;
+				width:50%;
+			}
+		}
+	}
+	
+	.char-page{
+		border-top:2px dashed black;
+		margin-top:10px;
+		
+		&.ind-0{
+			margin-top:0;	
+		}
+	}
+	.char-page:last-child{
+		page-break-after:avoid;	
+	}
+	&.more-pages .char-page {
+		page-break-after: always;		
+	}
+	.main-page{
+		page-break-after: always;
+		border-top:none;
+		margin-top:0;
+	}
+	.char-top{
+		height: 30px;
+		background-color: #eeeded;
+		margin-top: 0;
+		margin-left: -36px;
+		margin-right: -36px;
+		margin-bottom: 15px;
+	}
+	&:first-child{
+		.char-top{
+			display:none;
+		}
+	}
+}
+//Print styles
+@media print{
+	html{
+		margin-top: 0 !important;	
+	}
+	html,
+	body{
+		width: auto;
+		background: none;
+		margin: 0;
+		height:auto;	
+	}
+	header,
+	.inv-menu,
+	.print-char,
+	.pre_footer,
+	footer,
+	#sitewide-notice,
+	.char-top{
+		display:none;	
+	}
+	.inventory-ui .char-page{
+		border:none;
+		&.upper-line{
+			border-top:2px solid black;	
+		}
+	}
+	.print-char{
+		display:none !important;	
+	}
+	.inventory-ui .more-pages .char-page{
+		margin:0;
+	}
+	.innerBody{
+		background: none;
+		box-shadow: none;
+		min-width: 0;	
+	}
+	.content_wrapper .container{
+		width:auto;	
+	}
+	.inventory-ui{
+		padding:0;	
+	}
+	.inventory-ui .inv-panel{
+		padding:0;
+		margin:0;
+		width: auto;
+		border: none;
+	}
+	.character-sheet{
+		page-break-before: always;
+		
+		&:first-child{
+			page-break-before: avoid;
+		}
+		&.more-pages .char-page{
+			page-break-after:always;	
+		}
+	}
+}

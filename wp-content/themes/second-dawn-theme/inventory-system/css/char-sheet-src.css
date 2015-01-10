@@ -1,0 +1,372 @@
+.character-sheet {
+  width: 565pt;
+  font-size: 7.5pt;
+  line-height: 15pt;
+  font-family: Arial, Helvetica, sans-serif;
+  background: white; }
+  .character-sheet * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact; }
+  .character-sheet p, .character-sheet td, .character-sheet div, .character-sheet blockquote p {
+    font-size: 7.5pt;
+    line-height: 12pt; }
+  .character-sheet .box-count, .character-sheet table #combat-counts .count, .character-sheet .lost-art-legend .value, .character-sheet .equipment-page .influence .num {
+    width: 28pt;
+    border: 1pt solid black;
+    padding: 2pt 8pt 0pt 0;
+    text-align: right;
+    border-bottom: 0;
+    height: 14pt; }
+  .character-sheet h1 {
+    font-size: 13pt;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 13px;
+    background: none;
+    line-height: 12pt;
+    text-align: left;
+    text-transform: none;
+    margin-left: 8pt;
+    line-height: 17pt; }
+  .character-sheet h2 {
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    margin-bottom: 6px;
+    background: none;
+    text-align: left; }
+  .character-sheet .small {
+    font-size: 7.5pt; }
+  .character-sheet .top-space {
+    margin-top: 1pt; }
+  .character-sheet table {
+    border-collapse: collapse; }
+    .character-sheet table.full {
+      width: 100%; }
+    .character-sheet table.worn {
+      width: 410pt;
+      float: left; }
+    .character-sheet table #combat-counts {
+      float: left;
+      width: 142pt;
+      margin-left: 18px; }
+      .character-sheet table #combat-counts div {
+        display: inline-block; }
+      .character-sheet table #combat-counts .label {
+        width: 80pt;
+        margin-left: 24pt;
+        font-size: 9pt;
+        display: inline-block; }
+      .character-sheet table #combat-counts .count {
+        display: inline-block;
+        height: 16pt; }
+    .character-sheet table.skill-page td {
+      padding: 4pt;
+      vertical-align: top;
+      white-space: pre-wrap; }
+      .character-sheet table.skill-page td:first-child {
+        font-size: 9pt;
+        width: 20%; }
+    .character-sheet table .skill-table {
+      width: 183pt;
+      margin-right: 7pt;
+      float: left; }
+      .character-sheet table .skill-table:last-child {
+        margin-right: 0;
+        width: 185pt; }
+      .character-sheet table .skill-table td {
+        padding-left: 3pt; }
+  .character-sheet .upper-line {
+    border-top: 2pt solid black; }
+  .character-sheet .bottom-line {
+    border-bottom: 2pt solid black; }
+  .character-sheet .inline-tbl {
+    float: left; }
+  .character-sheet #slots-table {
+    width: 124pt;
+    margin-right: 7pt;
+    text-align: center; }
+    .character-sheet #slots-table td:first-child {
+      text-align: left; }
+  .character-sheet #under-top-table,
+  .character-sheet #class-table {
+    width: 434pt;
+    margin-right: -2px;
+    float: left; }
+    .character-sheet #under-top-table .key,
+    .character-sheet #class-table .key {
+      display: inline-block;
+      width: 50pt; }
+      .character-sheet #under-top-table .key.short,
+      .character-sheet #class-table .key.short {
+        margin-right: 5pt;
+        width: 32pt; }
+    .character-sheet #under-top-table .value,
+    .character-sheet #class-table .value {
+      font-weight: bold; }
+  .character-sheet #race-table {
+    margin-right: -3px;
+    width: 752px; }
+    .character-sheet #race-table td {
+      width: 50%; }
+      .character-sheet #race-table td.full-text {
+        font-style: italic;
+        line-height: 13pt;
+        padding: 5pt 0;
+        height: 68pt;
+        vertical-align: top; }
+  .character-sheet .left-pad {
+    padding-left: 2pt; }
+  .character-sheet .full-text {
+    white-space: pre-wrap; }
+  .character-sheet .index {
+    background-color: #e7e7e7;
+    text-shadow: 1pt 1pt 1pt white;
+    text-transform: uppercase;
+    padding: 0pt 0 0pt 3pt;
+    line-height: 12pt; }
+    .character-sheet .index.level, .character-sheet .index.player-name, .character-sheet .index.build {
+      padding-left: 0; }
+    .character-sheet .index .title {
+      font-size: 10pt; }
+  .character-sheet .shade {
+    background-color: #e7e7e7; }
+  .character-sheet .ability {
+    display: inline-block;
+    width: 70pt; }
+    .character-sheet .ability:nth-child(7) {
+      margin-left: 70pt; }
+  .character-sheet .print-logo {
+    margin-right: 7pt;
+    width: 124pt;
+    vertical-align: top;
+    height: 50pt; }
+    .character-sheet .print-logo img {
+      height: 50pt;
+      width: 124pt; }
+  .character-sheet .top-line {
+    vertical-align: bottom; }
+    .character-sheet .top-line .character-name {
+      width: 190pt; }
+  .character-sheet .character-name {
+    width: 178pt; }
+  .character-sheet .player-name {
+    width: 144pt; }
+    .character-sheet .player-name.top {
+      width: 142pt; }
+  .character-sheet .level {
+    width: 69pt; }
+    .character-sheet .level.top {
+      width: 67pt; }
+  .character-sheet .free-build {
+    font-weight: bold; }
+  .character-sheet .attr {
+    width: 30%; }
+    .character-sheet .attr:first-child {
+      width: 23%; }
+    .character-sheet .attr:last-child {
+      width: 37%; }
+  .character-sheet tr:nth-child(even) > .line-item {
+    background-color: #f4f4f4; }
+    .character-sheet tr:nth-child(even) > .line-item.index {
+      background-color: #e7e7e7; }
+  .character-sheet .total-box {
+    display: inline-block;
+    margin-left: 290pt;
+    padding: 0 4pt 0 4pt;
+    text-transform: uppercase;
+    height: 14pt; }
+    .character-sheet .total-box .total-text {
+      margin-right: 8pt; }
+    .character-sheet .total-box .slot-num {
+      display: inline-block;
+      width: 11pt; }
+      .character-sheet .total-box .slot-num.armor {
+        width: 45pt; }
+  .character-sheet .weapon-totals {
+    margin-bottom: 5pt; }
+  .character-sheet .defense-box {
+    width: 46pt;
+    text-align: center;
+    margin-left: 365pt;
+    height: 14pt;
+    margin-top: -11pt;
+    text-transform: uppercase; }
+  .character-sheet .damage-box {
+    width: 121pt;
+    text-align: center;
+    margin-left: 442pt;
+    height: 14pt;
+    margin-top: -2pt;
+    text-transform: uppercase;
+    position: relative;
+    right: -1pt; }
+  .character-sheet .short .line-item {
+    line-height: 10pt; }
+  .character-sheet .line-item {
+    line-height: 11pt;
+    padding: 1pt 0; }
+    .character-sheet .line-item span {
+      display: inline-block; }
+    .character-sheet .line-item.index .item-name {
+      margin-left: 0pt; }
+    .character-sheet .line-item .item-name {
+      width: 124pt;
+      margin-left: 3pt; }
+    .character-sheet .line-item .type {
+      width: 78pt; }
+    .character-sheet .line-item .quality {
+      width: 66pt; }
+    .character-sheet .line-item .location {
+      width: 57pt; }
+    .character-sheet .line-item .armor-num {
+      width: 45pt; }
+    .character-sheet .line-item .slot-num {
+      width: 12pt; }
+    .character-sheet .line-item .combat {
+      margin-left: 37pt; }
+    .character-sheet .line-item .tag-line {
+      width: 102pt; }
+    .character-sheet .line-item .damage-base {
+      width: 30pt;
+      margin-left: 38pt; }
+    .character-sheet .line-item .damage-mod {
+      width: 49pt; }
+  .character-sheet .lost-art-legend {
+    float: right;
+    margin-bottom: -10pt; }
+    .character-sheet .lost-art-legend div {
+      display: inline-block;
+      vertical-align: top; }
+    .character-sheet .lost-art-legend .value {
+      background: white;
+      border-top: 0;
+      border-bottom: 1pt solid black; }
+  .character-sheet .lost-art-list {
+    margin-top: 20pt; }
+    .character-sheet .lost-art-list span {
+      width: 35pt; }
+      .character-sheet .lost-art-list span.first {
+        margin-left: 3pt; }
+      .character-sheet .lost-art-list span.name, .character-sheet .lost-art-list span.requirement {
+        width: 174pt; }
+      .character-sheet .lost-art-list span.category {
+        width: 70pt; }
+  .character-sheet .equipment-page .line-item {
+    padding: 4pt; }
+  .character-sheet .equipment-page .first-line {
+    border-bottom: 1pt dashed black;
+    margin: 0 -4pt 0 -4pt;
+    padding: 4pt; }
+  .character-sheet .equipment-page .name {
+    width: 175pt;
+    font-size: 10pt; }
+  .character-sheet .equipment-page .item {
+    width: 75pt; }
+  .character-sheet .equipment-page .low {
+    width: 20pt;
+    margin-left: 92pt;
+    text-align: center;
+    border: 1pt solid black; }
+  .character-sheet .equipment-page .mid,
+  .character-sheet .equipment-page .high {
+    width: 20pt;
+    text-align: center;
+    border: 1pt solid black;
+    border-left: none; }
+  .character-sheet .equipment-page .influence {
+    width: 50pt;
+    float: left;
+    padding-top: 4pt; }
+    .character-sheet .equipment-page .influence .num {
+      border-bottom: 1px solid black;
+      text-align: center;
+      font-size: 10pt; }
+  .character-sheet .equipment-page .descp {
+    padding-top: 4pt; }
+  .character-sheet .equipment-page .slots-count {
+    width: 50pt;
+    float: left; }
+    .character-sheet .equipment-page .slots-count div {
+      float: left;
+      width: 50%; }
+  .character-sheet .char-page {
+    border-top: 2px dashed black;
+    margin-top: 10px; }
+    .character-sheet .char-page.ind-0 {
+      margin-top: 0; }
+  .character-sheet .char-page:last-child {
+    page-break-after: avoid; }
+  .character-sheet.more-pages .char-page {
+    page-break-after: always; }
+  .character-sheet .main-page {
+    page-break-after: always;
+    border-top: none;
+    margin-top: 0; }
+  .character-sheet .char-top {
+    height: 30px;
+    background-color: #eeeded;
+    margin-top: 0;
+    margin-left: -36px;
+    margin-right: -36px;
+    margin-bottom: 15px; }
+  .character-sheet:first-child .char-top {
+    display: none; }
+
+@media print {
+  html {
+    margin-top: 0 !important; }
+
+  html,
+  body {
+    width: auto;
+    background: none;
+    margin: 0;
+    height: auto; }
+
+  header,
+  .inv-menu,
+  .print-char,
+  .pre_footer,
+  footer,
+  #sitewide-notice,
+  .char-top {
+    display: none; }
+
+  .inventory-ui .char-page {
+    border: none; }
+    .inventory-ui .char-page.upper-line {
+      border-top: 2px solid black; }
+
+  .print-char {
+    display: none !important; }
+
+  .inventory-ui .more-pages .char-page {
+    margin: 0; }
+
+  .innerBody {
+    background: none;
+    box-shadow: none;
+    min-width: 0; }
+
+  .content_wrapper .container {
+    width: auto; }
+
+  .inventory-ui {
+    padding: 0; }
+
+  .inventory-ui .inv-panel {
+    padding: 0;
+    margin: 0;
+    width: auto;
+    border: none; }
+
+  .character-sheet {
+    page-break-before: always; }
+    .character-sheet:first-child {
+      page-break-before: avoid; }
+    .character-sheet.more-pages .char-page {
+      page-break-after: always; } }
+
+/*# sourceMappingURL=char-sheet-src.css.map */
