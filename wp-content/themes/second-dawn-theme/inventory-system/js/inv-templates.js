@@ -3,6 +3,21 @@ tmpstr.accessDrop =
 '<select class="access-dropdown">\
 	{{#each .}}<option{{#if selected}} selected="selected"{{/if}}>{{text}}</option>{{/each}}\
 </select>';
+
+tmpstr.listEvents = 
+'<div id="user-{{id}}" class="list-item event">\
+	<div class="outer">\
+		<div class="inner">\
+			<div class="input-line">\
+				{{#unless limited}}<div class="show-more edit-item circle-button edit"></div>{{/unless}}\
+				<div class="event-name">{{post_title}}</div>\
+			</div>\
+			<div class="description">{{DTT_EVT_start}} - {{DTT_EVT_end}}</div>\
+		</div>\
+		<div id="form-box"></div>\
+	</div>\
+</div>';
+
 tmpstr.characterlist = 
 '<span class="user-character">\
 	<span class="close"></span>\
@@ -14,9 +29,10 @@ tmpstr.listUser =
 	<div class="outer">\
 		<div class="inner">\
 			<div class="input-line">\
-				{{#unless limited}}<div class="show-more edit-item circle-button new"></div>{{/unless}}\
+				{{#unless limited}}<div class="show-more edit-item circle-button edit"></div>{{/unless}}\
 				<div class="user-name">{{name}}</div>\
 				{{#if permission_level}}{{permission_level}}{{else}}User{{/if}}\
+				{{#if isPlat}}<div class="platinum pending search-button">Platinum</div>{{/if}}\
 			</div>\
 			<div class="description">{{{char}}}</div>\
 		</div>\
@@ -28,7 +44,7 @@ tmpstr.editUserForm =
 	<input type="hidden" name="user_id" value="{{id}}"/>\
 	<div class="grid quarter">\
 		<div class="outer">\
-			<label>Permissions</label>\
+			<label>Permission Level</label>\
 			<div class="input-inner">\
 				<select name="permission_level" class="access-dropdown">\
 					{{#each select}}<option{{#if selected}} selected="selected"{{/if}}>{{text}}</option>{{/each}}\
@@ -54,15 +70,28 @@ tmpstr.editUserForm =
 	</div>\
 	<div class="grid quarter">\
 		<div class="outer">\
-			<label>Platinum Sponsorship</label>\
+			<label>Platinum End Date</label>\
 			<div class="input-inner">\
-				<input type="number" name="dawn_points" value="{{dawn_points}}"/>\
+				<input type="date" name="platinum" value="{{platinum}}"/>\
+			</div>\
+		</div>\
+	</div>\
+	<div class="grid">\
+		<div class="outer">\
+			<label>Permissions</label>\
+			<div class="input-inner">\
+				<div class="checklist">\
+					<input type="checkbox" name="permission-edit-la" value="true"{{#if permission-edit-la}} checked="checked"{{/if}}/><label>Edit Lost Arts</label>\
+			 	</div><!--\
+			 --><div class="checklist">\
+					<input type="checkbox" name="permission-edit-user" value="true"{{#if permission-edit-user}} checked="checked"{{/if}}/><label>Edit Users</label>\
+				</div>\
 			</div>\
 		</div>\
 	</div>\
 	<span class="update-build circle-button save"></span>\
 	<div class="input-line">\
-		<div id="create-character" class="submit-button update-build">Update</div>\
+		{{#if user_perm.edit-user}}<div id="create-character" class="submit-button update-build">Update</div>{{/if}}\
 	</div>\
 </div>';
 tmpstr.newCharacterUI = 
@@ -78,12 +107,26 @@ tmpstr.newCharacterUI =
 	<input type="hidden" name="init-build" value="{{#if build}}{{build}}{{else}}50{{/if}}"/>\
 	<input type="hidden" name="build_spent" value="{{build_spent}}"/>\
 	{{#ifCond save_action create}}\
-		<div class="input-line small most"><label>Character Name</label><div class="input-wrap"><div class="input-inner"><input type="text" class="required" name="char_name" value="{{char_name}}"/></div></div></div>\
 	{{else}}\
 		<input type="hidden" name="char_id" value="{{char_id}}"/>\
-		<input type="hidden" name="char_name" value="{{char_name}}"/>\
 	{{/ifCond}}\
-	<div class="grid quarter">\
+	<div class="grid half">\
+		<div class="outer">\
+			<label>Character Name</label>\
+			<div class="input-inner">\
+				<input type="text" class="required" name="char_name" value="{{char_name}}"/>\
+			</div>\
+		</div>\
+	</div><!--\
+ --><div class="grid half">\
+		<div class="outer">\
+			<label>True Name</label>\
+			<div class="input-inner">\
+				<input type="text" name="true_name" value="{{true_name}}"/>\
+			</div>\
+		</div>\
+	</div><!--\
+ --><div class="grid quarter">\
 		<div class="outer">\
 			<label>Assign to: </label>\
 			<div class="input-inner">\
@@ -166,10 +209,10 @@ tmpstr.newCharacterUI =
 	</div><!--\
  --><div class="grid quarter">\
 		<div class="outer">\
-			<label>Orizon</label>\
+			<label>Orison</label>\
 			<div class="input-inner">\
 				<select name="orizon">\
-					<option value="">Choose Orizon</option>\
+					<option value="">Choose Orison</option>\
 					{{#each cache.orizons}}\
 						<option value="{{or_id}}" {{#ifCond or_id ../orizon.or_id}}selected="selected"{{/ifCond}}>{{or_name}}</option>\
 					{{/each}}\
@@ -177,9 +220,17 @@ tmpstr.newCharacterUI =
 			</div>\
 		</div>\
 	</div><!--\
+ --><div class="grid">\
+		<div class="outer">\
+			<label>Notes</label>\
+			<div class="input-inner">\
+				<textarea name="notes">{{char_notes}}</textarea>\
+			</div>\
+		</div>\
+	</div><!--\
 -->{{>backgroundBox}}<!--\
 --><div class="bankbox slotsbox{{#if method}} {{method}}{{else}} a{{/if}}" data-method="{{#if method}}{{method}}{{/if}}">\
-		<p class="title">Slots</p>\
+		<p class="title">Slots <small class="spent-slots"></small></p>\
 		<div class="bank-hold">\
 		<div class="list-item"><div class="inner">\
 			<div class="input-line quarter low">\
@@ -251,11 +302,26 @@ tmpstr.characterProfileUI =
 	<input type="hidden" name="char_id" value="{{char_id}}"/>\
 	<input type="hidden" name="lives" value="{{#if lives}}{{lives}}{{else}}3{{/if}}"/>\
 	{{#if char_name}}\
-	<input type="hidden" name="char_name" value="{{char_name}}"/>\
+	<input type="hidden" name="char_name" value="{{char_name}}"/><!--\
 	{{else}}\
-	<div class="input-line small most"><label>Character Name</label><div class="input-wrap"><div class="input-inner"><input type="text" class="required" name="char_name" value="{{char_name}}"/></div></div></div>\
+	<div class="grid half">\
+		<div class="outer">\
+			<label>Character Name</label>\
+			<div class="input-inner">\
+				<input type="text" class="required" name="char_name" value="{{char_name}}"/>\
+			</div>\
+		</div>\
+	</div><!--\
 	{{/if}}\
-	<div class="grid eighth">\
+ --><div class="grid half">\
+		<div class="outer">\
+			<label>True Name</label>\
+			<div class="input-inner">\
+				<input type="text" name="true_name" value="{{true_name}}"/>\
+			</div>\
+		</div>\
+	</div><!--\
+ --><div class="grid eighth">\
 		<div class="outer">\
 			<label>Build</label>\
 			<div class="input-inner">\
@@ -342,13 +408,13 @@ tmpstr.characterProfileUI =
 	</div><!--\
  --><div class="grid quarter">\
 		<div class="outer">\
-			<label>Orizon</label>\
+			<label>Orison</label>\
 			<div class="input-inner">\
 				{{#if orizon.or_name}}\
 					<label>{{orizon.or_name}}</label>\
 				{{else}}\
 					<select name="orizon">\
-						<option value="">Choose Orizon</option>\
+						<option value="">Choose Orison</option>\
 						{{#each cache.orizons}}\
 							<option value="{{or_id}}">{{or_name}}</option>\
 						{{/each}}\
@@ -359,7 +425,7 @@ tmpstr.characterProfileUI =
 	</div><!--\
 -->{{>backgroundBox}}<!--\
 --><div class="bankbox a slotsbox">\
-		<p class="title">Slots</p>\
+		<p class="title">Slots <small class="spent-slots"></small></p>\
 		<div class="bank-hold">\
 		<div class="list-item"><div class="inner">\
 			<div class="input-line quarter low">\
@@ -411,13 +477,14 @@ tmpstr.characterProfileUI =
 
 
 tmpstr.characterListUI =
-'<div id="{{char_id}}" class="list-item character">\
+'<div id="{{char_id}}" class="list-item character{{#if pending}} pending{{/if}}">\
 	<div class="outer">\
 		<div class="inner">\
 			<div class="input-line">\
 				{{#unless limited}}<div class="show-more edit-item circle-button edit"></div><div class="archive-character circle-button archive"></div>{{/unless}}\
-				<div class="user-name">{{char_name}}</div>\
+				<div class="char-name">{{char_name}}</div>\
 				<div id="{{id}}" class="user_name">{{user}}</div>\
+				<div id="plus-print" class="search-button"></div>\
 				<div id="player-view" class="search-button">View as Player</div>\
 				{{#if pending}}<div class="pending search-button">Pending</div>{{/if}}\
 			</div>\
@@ -487,11 +554,12 @@ tmpstr.lostArtItem =
 		<div class="inner">\
 			<input type="hidden" data-name="item_id" value="{{la_id}}"/>\
 			<input id="active" type="hidden" data-name="active" value="{{rel_active}}"/>\
+			<div class="show-more circle-button view"></div>\
 			<div class="remove-la circle-button close"></div>\
 			<div class="input-line enable-la">\
 				<div class="input-wrap">\
 					<div class="input-inner">\
-						<div{{#ifCond locked "y"}} class="locked"{{/ifCond}}><input type="checkbox" value="enabled" {{#ifCond locked "y"}}checked="checked"{{#ifCond rel_info "enabled"}} checked="checked"{{/ifCond}}{{/ifCond}}/><label>Enable</label></div>\
+						<div{{#ifCond locked "y"}} class="locked"{{/ifCond}}><input type="checkbox" value="enabled" {{#ifCond locked "y"}}checked="checked"{{else}}{{#ifCond rel_info "enabled"}} checked="checked"{{/ifCond}}{{/ifCond}}/><label>Enable</label></div>\
 					</div>\
 				</div>\
 			</div>\
@@ -511,6 +579,7 @@ tmpstr.lostArtItem =
 				</div>\
 			</div>\
 		</div>\
+		<div id="form-box"><div class="inner">{{la_description}}</div></div>\
 	</div>\
 {{else}}\
 	<div class="bank-item lost-art-item list-item">\
@@ -588,53 +657,47 @@ tmpstr.equipmentItem =
 '<div class="bank-item equipment-item {{#if static}}static{{/if}} list-item">\
 	{{#if unique_info}}<input id="unique_info" type="hidden" value="{{unique_info}}"/>{{/if}}\
 	<input id="rel_id" type="hidden" value="{{rel_id}}"/>\
-	<div class="input-line">\
-		<div class="input-wrap">\
-			<div class="input-inner">\
-				<input id="eq_info-label" type="text" value="{{rel_info.[0]}}" placeholder="Item Name"/>\
-			</div>\
-		</div>\
-	</div>\
-	<div class="inner">\
-		<input id="active" type="hidden" data-name="active" value="{{rel_active}}"/>\
-		<div class="remove-equipment circle-button close"></div>\
-		<div class="input-line eq-location">\
-			<div class="input-wrap">\
+	<input id="active" type="hidden" data-name="active" value="{{rel_active}}"/>\
+	<div class="inner first">\
+		<div class="remove-equipment circle-button close"></div><!--\
+	 --><div class="grid half">\
+			<div class="outer">\
 				<div class="input-inner">\
-				{{#if location.loc_name}}\
-					<input id="location" type="hidden" value="{{location.loc_id}}"/>\
-					<label>{{location.loc_name}}</label>\
-				{{else}}\
-					<select id="location" data-name="rel_info_b">\
-						<option value="">Location</div>\
-						{{#each cache.armor_locations}}\
-							<option id="{{loc_id}}" value="{{loc_id}}">{{loc_name}}</option>\
-						{{/each}}\
-						{{#each armor_locations}}\
-							<option id="{{loc_id}}" value="{{loc_id}}">{{loc_name}}</option>\
-						{{/each}}\
-					</select>\
-				{{/if}}\
+					<input id="eq_info-label" type="text" value="{{rel_info.[0]}}" placeholder="Item Name"/>\
 				</div>\
 			</div>\
 		</div><!--\
-	 --><div class="input-line">\
-			<div class="input-wrap">\
+	 --><div class="grid quarter">\
+			<div class="outer">\
 				<div class="input-inner">\
 					<input id="eq_id" type="hidden" value="{{skill_id}}"/>\
-					<label>{{eq_name}}, {{quality}}</label>\
+					<label id="eq_type_name">{{eq_name}}, {{quality}}</label>\
+				</div>\
+			</div>\
+		</div><!--\
+	 --><div class="grid quarter">\
+			<div class="outer">\
+				<div class="input-inner">\
+					<select id="location" data-name="rel_info_b"{{#if location.loc_name}} value="{{location.loc_id}}"{{/if}}>\
+						<option value="" {{#unless location.loc_id}} selected="selected"{{/unless}}>Unequipped</div>\
+						{{#each armor_locations}}\
+							<option id="loc-{{loc_id}}" value="{{loc_id}}" {{#ifCond ../location.loc_name loc_name}} selected="selected"{{/ifCond}}>{{loc_name}}</option>\
+						{{/each}}\
+					</select>\
 				</div>\
 			</div>\
 		</div>\
 	</div><!--\
-	--><div class="input-line">\
-			<div class="input-wrap">\
+ --><div class="inner">\
+		<div class="grid">\
+			<div class="outer">\
 				<div class="input-inner">\
 					<textarea id="notes">{{#if description}}{{{description}}}{{else}}{{rel_info.[2]}}{{/if}}</textarea>\
 				</div>\
 			</div>\
 		</div>\
-	</div>';
+	</div>\
+</div>';
 
 tmpstr.skillItem = 
 '<div id="{{sk_id}}" class="bank-item skill-item list-item{{#if static}} static{{/if}}{{#unless current}} need_prereq wrong-class{{/unless}}" data-char-class="{{sk_class}}" data-prereq="{{sk_prereq}}"{{#if sk_prereq_eval}}data-sk-prereq-eval="{{sk_prereq_eval}}"{{/if}}>\
@@ -668,7 +731,15 @@ tmpstr.lostArtBox =
 
 tmpstr.backgroundBox =
 '<div class="bankbox background-box{{#if method}} {{method}}{{else}} a{{/if}}" data-value="{{background_list}}" data-method="{{#if method}}{{method}}{{/if}}" relation-name="backgrounds">\
-	<p class="title">Backgrounds<span class="add-background inline-button">Add Background</span></p>\
+	<p class="title">Backgrounds\
+		<span class="title-right"><span class="add-background inline-button">Add Background</span>\
+		<span class="inv-container"><select id="bk_selector">\
+			<option id="{{eq_id}}" value="">Select Background</div>\
+			{{#each cache.backgrounds}}\
+				<option id="{{bk_id}}" value="{{bk_id}}" data-name="{{bk_name}}" data-abilities="{{abilities}}">{{bk_name}}, {{abilities}}</div>\
+			{{/each}}\
+		</select></span></span>\
+	</p>\
 	<div class="bank-hold background-hold">\
 	{{#if Backgrounds}}{{#each Backgrounds}}\
 		{{#if active}}{{>backgroundItem .}}{{/if}}\
@@ -684,7 +755,7 @@ tmpstr.equipmentBox =
 		<span class="inv-container"><select id="eq_selector">\
 			<option id="{{eq_id}}" value="">Select Equipment</div>\
 			{{#each cache.equipment}}\
-				<option id="{{eq_id}}" value="{{eq_id}}" data-name="{{eq_name}}" data-quality="{{quality}}" data-props="{{eq_props}}">{{eq_name}}, {{quality}}</div>\
+				<option id="{{eq_id}}" value="{{eq_id}}" data-name="{{eq_name}}" data-quality="{{quality}}" data-props="{{eq_props}}" data-locations="{{location_areas}}">{{eq_name}}, {{quality}}</div>\
 			{{/each}}\
 		</select></span></span>\
 	</p>\
@@ -698,7 +769,7 @@ tmpstr.equipmentBox =
 
 tmpstr.skillBox =
 '<div class="bankbox skill-box{{#if method}} {{method}}{{else}} a{{/if}}" data-value="{{equipment_list}}" data-method="{{#if method}}{{method}}{{/if}}" relation-name="skills">\
-	<p class="title">Skills <span class="title-right free-build-ui">Free Build<span class="inv-container free-build-count">{{#if free_build}}{{free_build}}{{else}}50{{/if}}</span></p>\
+	<p class="title">Skills  <small class="spent-skills"></small><span class="title-right free-build-ui">Free Build<span class="inv-container free-build-count">{{#if free_build}}{{free_build}}{{else}}50{{/if}}</span></p>\
 	<div class="skill-panel {{#unless char_class}}no_class_selected{{/unless}}">\
 		<label class="index">Cost</label><label class="index">All Skills</label><label class="buyable-skills" style="display:none">Purchasable Skills Only >></label><label class="all-skills">Show All Skills >></label>\
 		<div class="bank-hold select skill-hold">\
@@ -814,7 +885,56 @@ tmpstr.makeTradeUI =
 		</div>\
 	</div>\
 </div>';
+tmpstr.listGroups =  
+'<div id="{{grp_id}}" class="list-item four group">\
+	<div class="outer">\
+		<div class="inner">\
+			<div class="input-line">\
+				<div class="show-more edit-item circle-button edit"></div>\
+				<div class="name"><span class="group_name">{{grp_name}}:</span> <small>{{grp_type}}</small></div>\
+			</div>\
+		</div>\
+		{{#unless limited}}<div id="form-box"><div class="inner"><div class="delete-group circle-button archive"></div>{{>newGroupUI .}}</div></div>{{/unless}}\
+	</div>\
+</div>';
 
+tmpstr.newGroupUI =
+'{{#unless grp_name}}\
+	<div class="headline inv-panel"><h3>Create New Group</h3></div>\
+{{/unless}}\
+<div data-method="{{#unless grp_name}}create{{else}}update{{/unless}}" class="virtual-form new-item-form {{#unless grp_name}}inv-panel{{/unless}}">\
+	{{#if grp_id}}<input type="hidden" value="{{grp_id}}" name="grp_id"/>{{/if}}\
+	<div class="grid half">\
+		<div class="outer">\
+			<label>Group Name</label>\
+			<div class="input-inner">\
+				<input type="text" class="required" name="grp_name" value="{{grp_name}}"/>\
+			</div>\
+		</div>\
+	</div><!--\
+ --><div class="grid half">\
+		<div class="outer">\
+			<label>Group Name</label>\
+			<div class="input-inner">\
+				<select name="grp_type">\
+					<option>organization</option>\
+					<option {{#ifCond grp_type "order"}} selected="selected"{{/ifCond}}>order</option>\
+				</select>\
+			</div>\
+		</div>\
+	</div><!--\
+ --><div class="grid half">\
+		<div class="outer">\
+			<label>Skill Name</label>\
+			<div class="input-inner">\
+				<input type="text" class="required" name="o_skill" value="{{o_skill}}"/>\
+			</div>\
+		</div>\
+	</div><!--\
+ --><div class="input-line right">\
+		<div id="create-group" class="submit-button">{{#if grp_name}}Update{{else}}Save{{/if}}</div>\
+	</div>\
+</div>';
 
 tmpstr.newItemUI =
 '{{#unless item_name}}\
@@ -822,6 +942,7 @@ tmpstr.newItemUI =
 {{/unless}}\
 <div data-method="{{#unless item_name}}create{{else}}update{{/unless}}" class="virtual-form new-item-form {{#unless item_name}}inv-panel{{/unless}}">\
 	<input type="hidden" name="item_type" value="Treasure">\
+	{{#if item_id}}<input name="item_id" type="hidden" value="{{item_id}}"/>{{/if}}\
 	<div id="item_name" class="input-line quarter">\
 		<label>Name</label>\
 		<div class="input-wrap"><div class="input-inner">\
@@ -871,7 +992,7 @@ tmpstr.transListUI =
 			<div class="input-line">\
 				<div class="show-more new-character circle-button view"></div>\
 				<span class="trade-icon {{trans_action}}" title="{{trans_action}}"></span>\
-				<div class="statement">{{statement}}</div>\
+				<div class="statement">{{statement}} ( {{trans_status}} )</div>\
 			</div>\
 			<div class="description">{{date_initiated}}{{#if message}}: "{{message}}"{{/if}}</div>\
 		</div>\
@@ -896,12 +1017,15 @@ tmpstr.transListUI =
 	</div>\
 </div>';
 tmpstr.listLostArts = 
-'<div id="la-{{la_id}}" class="list-item lost-art">\
+'<div id="{{la_id}}" class="list-item lost-art">\
 	<div class="outer">\
 		<div class="inner">\
 			<div class="input-line">\
 				<div class="show-more edit-item circle-button edit"></div>\
 				<div class="la-name">{{la_name}}</div>\
+				<div id="lost-art-ops" class="description search-button">\
+					Tier: {{tier}}, Teach: {{#ifCond teach "y"}}yes{{else}}no{{/ifCond}}, Locked: {{#ifCond locked "y"}}yes{{else}}no{{/ifCond}}\
+				</div>\
 			</div>\
 			<div class="description">{{la_description}}</div>\
 		</div>\
@@ -923,31 +1047,31 @@ tmpstr.newLostArtUI =
 	<div id="la_type" class="input-line quarter">\
 		<label>Type</label>\
 		<div class="input-wrap"><div class="input-inner">\
-			<input class="required" type="text" name="la_type"{{#if la_type}} value="{{la_type}}"{{/if}}/>\
+			<input type="text" name="la_type"{{#if la_type}} value="{{la_type}}"{{/if}}/>\
 		</div></div>\
 	</div>\
 	<div id="la_category" class="input-line quarter">\
 		<label>Category</label>\
 		<div class="input-wrap"><div class="input-inner">\
-			<input class="required" type="text" name="la_category"{{#if la_category}} value="{{la_category}}"{{/if}}/>\
+			<input type="text" name="la_category"{{#if la_category}} value="{{la_category}}"{{/if}}/>\
 		</div></div>\
 	</div>\
 	<div id="la_tree" class="input-line quarter">\
 		<label>Tree</label>\
 		<div class="input-wrap"><div class="input-inner">\
-			<input class="required" type="text" name="la_tree"{{#if la_tree}} value="{{la_tree}}"{{/if}}/>\
+			<input type="text" name="la_tree"{{#if la_tree}} value="{{la_tree}}"{{/if}}/>\
 		</div></div>\
 	</div>\
 	<div id="branch" class="input-line quarter">\
 		<label>Branch</label>\
 		<div class="input-wrap"><div class="input-inner">\
-			<input class="required" type="text" name="branch"{{#if branch}} value="{{branch}}"{{/if}}/>\
+			<input type="text" name="branch"{{#if branch}} value="{{branch}}"{{/if}}/>\
 		</div></div>\
 	</div>\
 	<div id="tier" class="input-line quarter">\
 		<label>Tier</label>\
 		<div class="input-wrap"><div class="input-inner">\
-			<input class="required" type="text" name="tier"{{#if tier}} value="{{tier}}"{{/if}}/>\
+			<input type="text" name="tier"{{#if tier}} value="{{tier}}"{{/if}}/>\
 		</div></div>\
 	</div>\
 	<div id="la_checks" class="input-line">\
@@ -963,7 +1087,7 @@ tmpstr.newLostArtUI =
 		<textarea name="la_description">{{la_description}}</textarea>\
 	</div>\
 	<div class="input-line right">\
-		<div id="create-lost-art" class="submit-button">{{#if la_name}}Update{{else}}Save{{/if}}</div>\
+		{{#if user_perm.edit-la}}<div id="create-lost-art" class="submit-button">{{#if la_name}}Update{{else}}Save{{/if}}</div>{{/if}}\
 	</div>\
 </div>';
 tmpstr.searchBar = 
@@ -972,11 +1096,15 @@ tmpstr.searchBar =
 		<div class="input-wrap">\
 			<div class="input-inner">\
 				<div class="search-icon"></div><input id="search-input" type="text" name="build" placeholder="{{placeholder}}" value="{{searchVal}}" data-last-search="{{searchVal}}"/>\
-				<span class="title-right pgSelect">Pg:<select id="start-index">\
-				{{#times pages}}\
-					<option>{{this}}</option>\
-				{{/times}}\
-				</select></span>\
+				{{#if pages}}\
+					<span class="title-right pgSelect">Pg:<select id="start-index">\
+					{{#times pages}}\
+						<option>{{this}}</option>\
+					{{/times}}\
+					</select></span>\
+				{{else}}\
+					<div id="search-view" class="search-button">GO</div>\
+				{{/if}}\
 				<div style="clear:both"></div>\
 			</div>\
 		</div>\
@@ -1010,6 +1138,7 @@ function initTemplates(){
 		{alias: 'skillBox',			VAR: 'skillBox'},
 		{alias: 'skillItem',		VAR: 'skillItem'},
 		{alias: 'editUserForm',		VAR: 'editUserForm'},
+		{alias: 'newGroupUI',		VAR: 'newGroupUI'},
 	]
 	_.each(partials,function(ps){
 		Handlebars.registerPartial(ps.alias,tmpstr[ps.VAR]);
